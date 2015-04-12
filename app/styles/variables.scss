@@ -1,0 +1,75 @@
+// COLORS
+
+// Aqua
+$colorLightAqua: #00dfe6;
+$colorAqua: #16d4d9;
+$colorDarkAqua: #00c0c4;
+
+// Royal
+$colorLightRoyal: #1768c5;
+$colorRoyal: #134ac0;
+$colorDarkRoyal: #0f3d9e;
+
+// Navy
+$colorLightNavy: #2f466b;
+$colorNavy: #162640;
+$colorDarkNavy: #0d1726;
+
+// Grey
+$colorWhiteGrey: #eff0f6;
+$colorLightGrey: #ccd0d8;
+$colorGrey: #92949c;
+$colorDarkGrey: #42444c;
+$colorBlackGrey: #282828;
+
+// Red
+$colorLightRed: #ff6168;
+$colorRed: #f73d47;
+$colorDarkRed: #de3137;
+
+// Orange
+$colorLightOrange: #ff9566;
+$colorOrange: #f97332;
+$colorDarkOrange: #cc6225;
+
+// Green
+$colorLightGreen: #61cf86;
+$colorGreen: #26be6a;
+$colorDarkGreen: #009d63;
+
+// Yellow
+$colorLightYellow: #ffd85d;
+$colorYellow: #fec350;
+$colorDarkYellow: #f5b133;
+
+// Purple
+$colorLightPurple: #945fbf;
+$colorPurple: #7c44ab;
+$colorDarkPurple: #653f7b;
+
+// Cream
+$colorCream: #f4ecd8;
+
+// BASE TYPE SIZES AND RHYTHM CONFIGURATIONS
+$baseFontSize: 18px !default;
+$fontUnit: 1em;
+$columnPadding: 10px;
+
+// GRID
+$gridIncrement: 10px;
+
+$gutterWidth: 20px;
+
+$columnCount: 6;
+$columnMaxWidth: 180px;
+$columnPadding: $gridIncrement;
+$containerMaxWidth: $columnCount * ($columnMaxWidth + (2 * $columnPadding));
+
+@function rhythm($lines: 1, $increment: $columnPadding) {
+  @return $lines * $increment;
+}
+
+// TYPEFACE STACKS
+
+$esta: OyEsta, EstaPro, Georgia, serif;
+$akkurat: OyAkkurat, Akkurat Pro, Arial, sans-serif;

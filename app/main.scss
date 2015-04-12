@@ -1,3 +1,69 @@
+// Global styles and mixins
+@import 'styles/variables.scss';
+@import 'styles/mixins/grid';
+@import 'styles/mixins/responsive';
+
+@import 'styles/normalize';
+
 body {
-  background-color: white;
+  @include row();
+  position: relative;
+
+  font-size: $baseFontSize;
+  font-family: $esta;
+
+  background-color: $colorNavy;
+  color: white;
+  line-height: 1.5em;
+
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  position: relative;
+}
+
+a[href],
+input[type='submit'],
+input[type='image'],
+label[for],
+select,
+button {
+  cursor: pointer;
+}
+
+i {
+  font-style : normal;
+}
+
+b,
+strong {
+  font-family: inherit;
+  letter-spacing: 0;
+}
+
+
+[data-grid-row] {
+  @include row();
+}
+
+// Global attribute styles
+@import 'styles/type.scss';

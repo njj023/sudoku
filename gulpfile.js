@@ -14,7 +14,7 @@ var webpackDevServer = require('webpack-dev-server');
 var karma = require('karma').server;
 
 var assetPaths = Object.freeze({
-  ROOT: 'assets'
+  ROOT: 'app'
 });
 
 var publicPaths = Object.freeze({

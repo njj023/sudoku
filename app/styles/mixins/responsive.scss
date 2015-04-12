@@ -1,0 +1,47 @@
+/********************************************************
+ * MEDIA QUERIES
+ ******************************************************** */
+
+// Apply styles when the min-height of the window is at least a certain height, as determined by `document.documentElement.clientHeight`
+// @mixin taller-than
+// @param $minHeight {NumberUnit} the minimum height
+// @usage:
+// +taller-than(15em)
+@mixin taller-than($minHeight) {
+  @media (min-height: $minHeight) {
+    @content;
+  }
+}
+
+// Apply styles when the max-height of the window is at most a certain height, as determined by `document.documentElement.clientHeight`
+// @mixin shorter-than
+// @param $maxHeight {NumberUnit} the maximum height
+// @usage:
+// +shorter-than(15em)
+@mixin shorter-than($maxHeight) {
+  @media (max-height: $maxHeight) {
+    @content;
+  }
+}
+
+// Apply styles when the min-width of the window is at least a certain width, as determined by `document.documentElement.clientWidth`
+// @mixin wider-than
+// @param $minWidth {NumberUnit} the minimum width
+// @usage:
+// +wider-than(15em)
+@mixin wider-than($minWidth) {
+  @media (min-width: $minWidth) {
+    @content;
+  }
+}
+
+// Apply styles when the max-width of the window is at most a certain width, as determined by `document.documentElement.clientWidth`
+// @mixin thinner-than
+// @param $maxWidth {NumberUnit} the maximum width
+// @usage:
+// +thinner-than(15em)
+@mixin thinner-than($maxWidth) {
+  @media (max-width: $maxWidth) {
+    @content;
+  }
+}

@@ -1,0 +1,56 @@
+/*
+ * Grid
+ */
+
+// For clearing floats.
+// http://stackoverflow.com/questions/8554043/what-is-clearfix
+// @mixin clearfix
+// @usage:
+// +clearfix()
+@mixin clearfix() {
+  // *zoom only needed for IE7 and below, which we don't support.
+  //*zoom: 1
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+// Defines a centered container element that has a max-width and is fluid.
+// @mixin container
+// @param maxWidth {NumberedUnit} max width of container
+// @usage:
+// +container(960px)
+// +container($accountMaxWidth)
+@mixin container($maxWidth: $containerMaxWidth) {
+  max-width: $maxWidth;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0;
+  position: relative;
+  min-height: 1px;
+  float: none;
+  @include clearfix();
+}
+
+// Defines a cleared row that expands across the width of its parent.
+// @mixin row
+// @usage:
+// +row()
+@mixin row() {
+  width: 100%;
+  min-height: 1px;
+  margin: 0;
+  @include clearfix();
+}
+
+@mixin columnPadding() {
+  padding-left: $columnPadding;
+  padding-right: $columnPadding;
+}
