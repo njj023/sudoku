@@ -20,7 +20,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /^(?!.*(bower_components|node_modules))+.+\.js$/, loader: 'babel-loader?sourceMap' }
+      { test: /^(?!.*node_modules)+.+\.js$/, loader: 'babel-loader?sourceMap' }
     ]
   },
   plugins: [

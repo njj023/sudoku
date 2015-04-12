@@ -8,6 +8,7 @@ var cache = require('gulp-cache');
 var gutil = require('gulp-util');
 var exec = require('child_process').exec;
 var autoprefixer = require('gulp-autoprefixer');
+var jshint = require('gulp-jshint');
 
 var webpack = require('webpack');
 var webpackDevServer = require('webpack-dev-server');
@@ -35,7 +36,7 @@ gulp.task('clean', function(done){
 });
 
 gulp.task('watch', function(){
-  gulp.watch(assetPaths.ROOT + '/**/*', ['jsxhint', 'styles'])
+  gulp.watch(assetPaths.ROOT + '/**/*', ['jshint', 'styles'])
 });
 
 /* STYLESHEETS
@@ -78,20 +79,11 @@ gulp.task('webpack-dev-server', function(done){
     });
 });
 
-gulp.task('jsxhint', function(done){
-  var command = [
-    'jsxhint',
-    '-c .jshintrc',
-    '--jsx-only',
-    '--6to5',
-    assetPaths.ROOT
-  ];
-
-  exec(command.join(' '), function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    done(err);
-  })
+gulp.task('jshint', function() {
+  return gulp.src([assetPaths.ROOT + '/**/*.js'])
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'));
 });
 
 /* TESTS
