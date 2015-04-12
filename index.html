@@ -11,7 +11,42 @@
     <title>Sudoku</title>
 
     <link rel="stylesheet" type="text/css" href="public/main.css">
-    <script src="public/main.bundle.js"></script>
+
+    <script>
+      /* Custom fonts */
+      (function(){
+        var typefaces = ['akkurat', 'esta'];
+
+        function addFont(typeface) {
+          var style = document.createElement('style');
+          style.rel = 'stylesheet';
+          style.type = 'text/css';
+          document.head.appendChild(style);
+          style.textContent = localStorage[typeface];
+        }
+
+        typefaces.forEach(function(typeface) {
+          if (localStorage[typeface]) {
+            addFont(typeface);
+          } else {
+            var request = new XMLHttpRequest();
+
+            request.open('GET', 'https://oyster-web-static.global.ssl.fastly.net/fonts/' + typeface + '.woff.css', true);
+
+            request.onload = function() {
+              if (request.status >= 200 && request.status < 400) {
+                try {
+                  localStorage[typeface] = request.responseText;
+                  addFont(typeface);
+                } catch(ex) {}
+              }
+            };
+
+            request.send();
+          }
+        });
+      }());
+    </script>
   </head>
 
   <body>
