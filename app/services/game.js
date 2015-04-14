@@ -13,6 +13,9 @@ function validate(cellValue) {
   return Number.isInteger(cellValue) && cellValue > 0 && cellValue < 10;
 }
 
+// Create [0, 1, 2, 3,..., 9]
+const ALL_CELL_IDS = Immutable.fromJS(Array.from({length: 9}, (_, index) => index));
+
 /**
  * Game service that handles all states pertaining to a single instance of Sudoku.
  */
@@ -149,6 +152,10 @@ class Game {
     for (let cell of grid.cells) {
       if (numbers.has(cell.value)) {
         grid.isValid = false;
+
+        // Emit an INVALIDATE_CELLS event passing along the affected grids and cells and the duplicated value
+        GameDispatcher.emit(GameConstants.INVALIDATE_CELLS, Immutable.fromJS([gridID]),
+          ALL_CELL_IDS, cell.value);
       }
 
       if (cell.value !== null) {
@@ -190,6 +197,10 @@ class Game {
         // Duplicate found, so mark this row invalid
         if (numbers.has(value)) {
           this.rows[rowID] = false;
+
+          // Emit an INVALIDATE_CELLS event passing along the affected grids and cells and the duplicated value
+          GameDispatcher.emit(GameConstants.INVALIDATE_CELLS, Immutable.fromJS(adjacentRowGridIDs),
+            Immutable.fromJS(adjacentCellIDs), value);
         }
 
         if (value !== null) {
@@ -225,6 +236,10 @@ class Game {
 
         // Duplicate found, so mark this column invalid
         if (numbers.has(value)) {
+          // Emit an INVALIDATE_CELLS event passing along the affected grids and cells and the duplicated value
+          GameDispatcher.emit(GameConstants.INVALIDATE_CELLS, Immutable.fromJS(adjacentColumnGridIDs),
+            Immutable.fromJS(adjacentCellIDs), value);
+
           this.columns[columnID] = false;
         }
 
