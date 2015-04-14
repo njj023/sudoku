@@ -309,8 +309,8 @@ class Game {
 
     this.grids[4].cells[1] = {gridID: 4, editable: false, value: 6};
     this.grids[4].cells[3] = {gridID: 4, editable: false, value: 8};
-    this.grids[4].cells[5] = {gridID: 4, editable: false, value: 2};
-    this.grids[4].cells[7] = {gridID: 4, editable: false, value: 3};
+    this.grids[4].cells[5] = {gridID: 4, editable: false, value: 3};
+    this.grids[4].cells[7] = {gridID: 4, editable: false, value: 2};
 
     this.grids[5].cells[2] = {gridID: 5, editable: false, value: 3};
     this.grids[5].cells[5] = {gridID: 5, editable: false, value: 1};
