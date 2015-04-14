@@ -1,0 +1,13 @@
+.app {
+  text-align: center;
+
+  &-grids {
+    @include container(750px);
+
+    &-container {
+      width: calc(100% / 3);
+      display: inline-block;
+      float: left;
+    }
+  }
+}

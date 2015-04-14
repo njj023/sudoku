@@ -1,0 +1,17 @@
+.cell {
+  input {
+    background-color: inherit;
+    border: 1px solid $colorGrey;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+
+    &[disabled] {
+      color: $colorGrey;
+    }
+
+    &[data-invalidate="true"] {
+      color: $colorRed;
+    }
+  }
+}

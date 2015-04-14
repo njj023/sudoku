@@ -5,6 +5,18 @@
 
 @import 'styles/normalize';
 
+//Root container
+#content {
+  @include container(1200px);
+
+}
+
+*, *::after, *::before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body {
   @include row();
   position: relative;
@@ -67,3 +79,7 @@ strong {
 
 // Global attribute styles
 @import 'styles/type.scss';
+
+@import 'views/app.scss';
+@import 'views/grid.scss';
+@import 'views/cell.scss';

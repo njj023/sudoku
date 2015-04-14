@@ -73,6 +73,7 @@ gulp.task('webpack-dev-server', function(done){
       color: true
     },
     hot: true,
+    historyApiFallback: true,
     publicPath: '/public/'
   }).listen(8080, 'localhost', function(err) {
       if (err) throw new gutil.PluginError('webpack-dev-server Error', err);
