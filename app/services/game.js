@@ -34,8 +34,8 @@ class Game {
 
     // Bit arrays storing an isValid bit for each row and column in the grid
     // Initially all columns and rows are valid.
-    this.rows = Array.from({length: 9}, _ => true);
-    this.columns = Array.from({length: 9}, _ => true);
+    this.rows = Array.from({length: 9}, () => true);
+    this.columns = Array.from({length: 9}, () => true);
 
 
     this.setInitialCellValues(gameMode);

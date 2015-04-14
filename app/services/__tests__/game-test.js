@@ -29,14 +29,14 @@ describe('Game service tests', () => {
     const rows = game.getRows();
 
     expect(rows.size).toEqual(9);
-    expect(rows.every(row => true));
+    expect(rows.every(() => true));
   });
 
   it('should initialize all columns to be valid', () => {
     const columns = game.getColumns();
 
     expect(columns.size).toEqual(9);
-    expect(columns.every(column => true));
+    expect(columns.every(() => true));
   });
 
   it('should update cell on CELL_UPDATE event', () => {
