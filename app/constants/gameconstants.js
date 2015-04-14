@@ -1,0 +1,8 @@
+module.exports = Object.freeze({
+  CELL_UPDATE: 'CELL_UPDATE',
+  GRID_UPDATE: 'GRID_UPDATE',
+  GAME_UPDATE: 'GAME_UPDATE',
+
+  INVALIDATE_CELLS: 'INVALIDATE_CELLS',
+  WON: 'WON'
+});

@@ -1,7 +1,5 @@
-/* global describe,it,expect */
+//ES6 polyfills
+require('babel/polyfill');
 
-describe('dummy', function() {
-  it('dummy', function() {
-    expect(1).toEqual(1);
-  });
-});
+require('./services/__tests__/game-test');
+
