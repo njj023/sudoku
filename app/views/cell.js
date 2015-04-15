@@ -12,6 +12,10 @@ function validate(str) {
   return str.length === 1 && new RegExp('[1-9]').test(str);
 }
 
+/**
+ * This class is used for rendering and maintaining state of each cell in the puzzle. It emits events out to the
+ * dispatcher when call values change and it listens for events that validate or invalidate the current value.
+ */
 class Cell extends BaseView {
   constructor() {
     super();
@@ -38,14 +42,22 @@ class Cell extends BaseView {
 
   }
 
-  /**
-   * TODO: Add left and right navigation events
-   */
+  initializeData(cell, id) {
+    this.cell = cell;
+    this.id = id;
+    this.value = cell.get('value');
+
+    this.gridValid = true;
+    this.rowValid = true;
+    this.columnValid = true;
+  }
+
   bindKeyEvents() {
     this.inputTag.addEventListener('keydown', (evt) => {
       if (evt.keyCode === 13) {   // Enter key
         this.inputTag.blur();
       }
+      // TODO: would love to handle left/right key events here as well.
     });
   }
 
@@ -61,16 +73,6 @@ class Cell extends BaseView {
     this.onValidateColumnSubscribe();
 
     this.onWonSubscribe();
-  }
-
-  initializeData(cell, id) {
-    this.cell = cell;
-    this.id = id;
-    this.value = cell.get('value');
-
-    this.gridValid = true;
-    this.rowValid = true;
-    this.columnValid = true;
   }
 
   onChangeTrigger() {

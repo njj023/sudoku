@@ -17,6 +17,10 @@ class App extends BaseView {
     this.game = new Game();
   }
 
+  /**
+   * render() method on views construct the DOM elements. A custom html templating function is used (see utils/template).
+   * @returns {App} The App class instance itself which allows for chaining.
+   */
   render() {
     this.container.innerHTML = html`
         <h1 data-type="herolarge">Sudoku</h1>
@@ -31,14 +35,16 @@ class App extends BaseView {
         </button>
     `;
 
-    // Create grid views for each grid.
+    // Create grid views for each grid
     this.gridViews = this.game.getGrids().map(() => new Grid());
 
     this.renderGrids();
 
+    // Reset button functionality
     const resetButton = this.container.getElementsByClassName('app-reset')[0];
     resetButton.addEventListener('click', (evt) => this.reset(evt));
 
+    // Won message handling
     this.wonMessage = this.container.getElementsByClassName('app-wonMsg')[0];
     GameDispatcher.on(GameConstants.WON, () => {
       this.wonMessage.setAttribute('data-show', 'true');
@@ -47,6 +53,9 @@ class App extends BaseView {
     return this;
   }
 
+  /**
+   * For each grid, this method instantiates the Grid view.
+   */
   renderGrids() {
     const gridsContainer = this.container.getElementsByClassName('app-grids')[0];
     gridsContainer.innerHTML = '';
@@ -60,6 +69,9 @@ class App extends BaseView {
     }).bind(this));
   }
 
+  /**
+   * Reset the entire game state and re-render the grids.
+   */
   reset() {
     GameDispatcher.removeAllListeners();
     this.wonMessage.setAttribute('data-show', 'false');

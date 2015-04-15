@@ -1,6 +1,9 @@
 const Cell = require('./cell');
 const BaseView = require('./baseview');
 
+/**
+ * This class renders a grid holding 9 Cell views.
+ */
 class Grid extends BaseView {
   constructor() {
     super();

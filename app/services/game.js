@@ -19,7 +19,7 @@ function validate(cellValue) {
 class Game {
   /**
    * Constructor that initializes the game state.
-   * @param gameMode the game mode (default is PRESET).
+   * @param gameMode The game mode (default is PRESET but eventually I want to add random board generation).
    */
   constructor(gameMode=GameModeConstants.PRESET) {
     this.isValid = true;
@@ -36,7 +36,7 @@ class Game {
 
     this.setInitialCellValues(gameMode);
 
-    GameDispatcher.on(GameConstants.CELL_UPDATE, (...args) => this.setCell(...args));   // Arrow notation for proper scoping
+    GameDispatcher.on(GameConstants.CELL_UPDATE, (...args) => this.setCell(...args));
   }
 
   /**
@@ -64,7 +64,7 @@ class Game {
   }
 
   /**
-   * Getter functions that returns an immutable copy of grids.
+   * Getter function that returns an immutable copy of grids.
    * As such this.grids should only be accessed through this method.
    * @returns {object} Immutable copy of grids
    */
@@ -147,7 +147,9 @@ class Game {
     // Invalidate the grid later if duplicate numbers are to be found.
     grid.isValid = true;
 
+    // Use a hash set to keep track of numbers so we get an O(1) lookup while checking for duplicates.
     let numbers = new Set();
+
     let prevValueCounter = 0;
 
     for (let cell of grid.cells) {
@@ -172,6 +174,7 @@ class Game {
       grid.isComplete = true;
     }
 
+    // If only 0 or 1 cells with prevValue were found, this grid is valid now for that particular value
     if (prevValueCounter <= 1) {
       GameDispatcher.emit(GameConstants.VALIDATE_GRID, gridID, prevValue);
     }
@@ -179,10 +182,12 @@ class Game {
 
   /**
    * Iterate through the corresponding row of <gridID, cellID>. Given that the data is stored as a list
-   * of one dimensional grids, each of which contains a one dimensional list of cells, there is some computation
+   * of one dimensional grids,, there is some computation
    * needed to determine the right row.
    * @param gridID
    * @param cellID
+   * @param prevValue The previous value the cell pointed to before getting updated. This allows us to validate any
+   *        prior cells that were invalid before but maybe valid now.
    */
   checkRow(gridID, cellID, prevValue) {
     const rowID = this.getRowID(gridID, cellID);
@@ -221,6 +226,7 @@ class Game {
       }
     }
 
+    // If only 0 or 1 cells with prevValue were found, this row is valid now for that particular value
     if (prevValueCounter <= 1) {
       GameDispatcher.emit(GameConstants.VALIDATE_ROW, rowID, prevValue);
     }
@@ -269,6 +275,7 @@ class Game {
       }
     }
 
+    // If only 0 or 1 cells with prevValue were found, column grid is valid now for that particular value
     if (prevValueCounter <= 1) {
       GameDispatcher.emit(GameConstants.VALIDATE_COLUMN, columnID, prevValue);
     }

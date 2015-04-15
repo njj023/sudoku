@@ -1,3 +1,6 @@
+/**
+ * This class holds small boilerplate code shared across the views.
+ */
 class BaseView {
   constructor() {
     this.container = document.createElement('div');

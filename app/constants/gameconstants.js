@@ -1,3 +1,6 @@
+/**
+ * Constants used throughout the app for event names.
+ */
 module.exports = Object.freeze({
   CELL_UPDATE: 'CELL_UPDATE',
   GAME_UPDATE: 'GAME_UPDATE',
