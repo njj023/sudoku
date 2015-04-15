@@ -4,6 +4,14 @@ const GameConstants = require('../constants/gameconstants');
 
 const BaseView = require('./baseview');
 
+/**
+ * Validates that the given string is a digit from 0-9
+ * @param str Input to validate.
+ */
+function validate(str) {
+  return str.length === 1 && new RegExp('[1-9]').test(str);
+}
+
 class Cell extends BaseView {
   constructor() {
     super();
@@ -23,8 +31,22 @@ class Cell extends BaseView {
         <input type="text" ${!cell.get('editable') ? 'disabled' : ''} value=${value}>
     `;
 
+    this.inputTag = this.container.getElementsByTagName('input')[0];
+    this.bindKeyEvents();
+
     return this;
 
+  }
+
+  /**
+   * TODO: Add left and right navigation events
+   */
+  bindKeyEvents() {
+    this.inputTag.addEventListener('keydown', (evt) => {
+      if (evt.keyCode === 13) {   // Enter key
+        this.inputTag.blur();
+      }
+    })
   }
 
   subscribeToGameEvents() {
@@ -53,18 +75,16 @@ class Cell extends BaseView {
     this.container.addEventListener('change', (evt) => {
       let value = evt.target.value;
 
-      if (Number.isNaN(value)) {
-        // TODO: Handle validation
-        evt.target.value = '';
+      if (!validate(value)) {
+        this.value = null;
+        this.markAsInvalid();
       } else {
-        value = parseInt(value);
-        this.value = value;
-
+        this.value = parseInt(value);
         this.markAsValid();
-
-        GameDispatcher.emit(GameConstants.CELL_UPDATE,
-          this.cell.get('gridID'), this.id, value);
       }
+
+      GameDispatcher.emit(GameConstants.CELL_UPDATE,
+        this.cell.get('gridID'), this.id, this.value);
     });
   }
 
@@ -138,13 +158,11 @@ class Cell extends BaseView {
   }
 
   markAsInvalid() {
-    const inputTag = this.container.getElementsByTagName('input')[0];
-    inputTag.setAttribute('data-invalid', true);
+    this.inputTag.setAttribute('data-invalid', true);
   }
 
   markAsValid() {
-    const inputTag = this.container.getElementsByTagName('input')[0];
-    inputTag.setAttribute('data-invalid', false);
+    this.inputTag.setAttribute('data-invalid', false);
   }
 }
 

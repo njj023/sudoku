@@ -24,7 +24,9 @@ describe('Grid view tests', () => {
   let mockGrid = Immutable.fromJS({
     isValid: true,
     isComplete: false,
-    cells: Array.from({length: 9}, () => {value: null})   // 9 cells with null values
+
+    // Array of 9 null value cells. jshint does not like the syntax though it's valid!
+    cells: Array.from({length: 9}, () => {value: null})   // jshint ignore:line
   });
 
   beforeEach(() => {
