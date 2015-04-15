@@ -54,7 +54,7 @@ describe('Game service tests', () => {
     expect(updatedGrids.getIn(['1', 'isValid'])).toEqual(false);
   });
 
-  it('should reset grid as valid after removing invalid number', () => {
+  it('should reset grid as valid after removing duplicate number', () => {
     // Set a cell to a value already present in the preset grid
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 1, 2, 7);
 
@@ -86,21 +86,38 @@ describe('Game service tests', () => {
     expect(updatedGrids.getIn(['0', 'isComplete'])).toEqual(false);
   });
 
-  it('should set emit INVALIDATE_CELLS event after adding duplicate values', (done) => {
+  it('should emit INVALIDATE_GRID event after adding duplicate values', (done) => {
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 2, 4);
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 4, 7);
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 6, 2);
 
-    mockDispatcher.addListener(GameConstants.INVALIDATE_CELLS, (gridIDs, cellIDs, dupeValue) => {
-      expect(gridIDs.toJS()).toEqual([0]);
-      expect(cellIDs.toJS()).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+    mockDispatcher.addListener(GameConstants.INVALIDATE_GRID, (gridID, dupeValue) => {
+      expect(gridID).toEqual(0);
       expect(dupeValue).toEqual(7);
 
-      mockDispatcher.removeAllListeners(GameConstants.INVALIDATE_CELLS);
+      mockDispatcher.removeAllListeners(GameConstants.INVALIDATE_GRID);
       done();
     });
 
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 5, 7);   // Dupe value
+  });
+
+  it('should emit VALIDATE_GRID event after fixing duplicate values', (done) => {
+    mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 2, 4);
+    mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 4, 7);
+    mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 6, 2);
+
+    mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 5, 7);   // Dupe value
+
+    mockDispatcher.addListener(GameConstants.VALIDATE_GRID, (gridID, dupeValue) => {
+      expect(gridID).toEqual(0);
+      expect(dupeValue).toEqual(7);
+
+      mockDispatcher.removeAllListeners(GameConstants.VALIDATE_GRID);
+      done();
+    });
+
+    mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 5, 3);   // Fix dupe value
   });
 
   it('should compute correct row ids for given grid and cell id', () => {
@@ -144,19 +161,18 @@ describe('Game service tests', () => {
     expect(game.getRows().get(1)).toEqual(false);
   });
 
-  it('should emit INVALIDATE_CELLS event after adding duplicate entries in the row', (done) => {
+  it('should emit INVALIDATE_ROW event after adding duplicate entries in the row', (done) => {
     // We will update the 2nd row in the wiki board
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 4, 7);
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 0, 5, 8);
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 2, 3, 2);
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 2, 4, 3);
 
-    mockDispatcher.addListener(GameConstants.INVALIDATE_CELLS, (gridIDs, cellIDs, dupeValue) => {
-      expect(gridIDs.toJS()).toEqual([0, 1, 2]);
-      expect(cellIDs.toJS()).toEqual([3, 4, 5]);
+    mockDispatcher.addListener(GameConstants.INVALIDATE_ROW, (rowID, dupeValue) => {
+      expect(rowID).toEqual(1);
       expect(dupeValue).toEqual(7);
 
-      mockDispatcher.removeAllListeners(GameConstants.INVALIDATE_CELLS);
+      mockDispatcher.removeAllListeners(GameConstants.INVALIDATE_ROW);
       done();
 
     });
@@ -188,28 +204,25 @@ describe('Game service tests', () => {
     expect(game.getColumns().get(8)).toEqual(false);
   });
 
-  it('should emit INVALIDATE_CELLS event after adding duplicate entries in the column', (done) => {
+  it('should emit INVALIDATE_COLUMN event after adding duplicate entries in the column', (done) => {
     // We will update the last column in the wiki board
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 2, 2, 7);
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 2, 5, 8);
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 2, 8, 2);
 
-    mockDispatcher.addListener(GameConstants.INVALIDATE_CELLS, (gridIDs, cellIDs, dupeValue) => {
-      expect(gridIDs.toJS()).toEqual([2, 5, 8]);
-      expect(cellIDs.toJS()).toEqual([2, 5, 8]);
+    mockDispatcher.addListener(GameConstants.INVALIDATE_COLUMN, (columnID, dupeValue) => {
+      expect(columnID).toEqual(8);
       expect(dupeValue).toEqual(3);
 
-      mockDispatcher.removeAllListeners(GameConstants.INVALIDATE_CELLS);
+      mockDispatcher.removeAllListeners(GameConstants.INVALIDATE_COLUMN);
       done();
 
     });
 
     mockDispatcher.emit(GameConstants.CELL_UPDATE, 8, 2, 3); // Dupe with grid 5 cell 2
 
-    expect(game.getRows().get(1)).toEqual(false);
+    expect(game.getColumns().get(8)).toEqual(false);
   });
-
-
 });
 
 

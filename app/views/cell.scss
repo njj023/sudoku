@@ -27,7 +27,7 @@ $breakpointThinnest: 600px;
     transition: all .5s ease;
 
     &[disabled] {
-      color: $colorGrey;
+      opacity: 0.5;
     }
 
     &[data-invalid="true"] {

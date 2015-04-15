@@ -1,4 +1,5 @@
 const GameDispatcher = require('../dispatchers/gamedispatcher');
+const GameConstants = require('../constants/gameconstants');
 const html = require('../utils/template').html;
 const Game = require('../services/game');
 
@@ -12,6 +13,7 @@ class App extends BaseView {
 
     this.container = document.createElement('main');
     this.container.className = 'app';
+
     this.game = new Game();
   }
 
@@ -48,10 +50,15 @@ class App extends BaseView {
       gridsContainer.appendChild(gridContainer);
     }).bind(this));
 
+    GameDispatcher.on(GameConstants.WON, () => {
+      console.log('You won!!!');
+    });
+
   }
 
   reset() {
     GameDispatcher.removeAllListeners();
+
     this.game = new Game();
     this.renderGrids();
   }
