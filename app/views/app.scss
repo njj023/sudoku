@@ -1,13 +1,48 @@
 .app {
   text-align: center;
+  @include container(1200px);
 
   &-grids {
-    @include container(750px);
+    margin: auto;
+    display: inline-block;
+
+    border-bottom: 2px solid $colorLightGrey;
+    border-left: 2px solid $colorLightGrey;
 
     &-container {
-      width: calc(100% / 3);
       display: inline-block;
       float: left;
+
+      border-top: 2px solid $colorLightGrey;
+      border-right: 2px solid $colorLightGrey;
+
+      &:nth-child(3n + 1) {
+        clear: both;
+      }
+    }
+  }
+
+  &-reset {
+    margin: rhythm(3) auto;
+    background-color: $colorAqua;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    height: 40px;
+    line-height: 22px;
+    padding: 0 rhythm(6);
+    font-weight: bold;
+    font-family: $akkurat;
+    text-align: center;
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:focus {
+      outline: none;
     }
   }
 }

@@ -2,18 +2,20 @@ const Cell = require('./cell');
 const BaseView = require('./baseview');
 
 class Grid extends BaseView {
-  constructor(grid) {
+  constructor() {
     super();
-    this.grid = grid;
+
+    this.container.className = 'grid';
+    this.cellViews = Array.from({length: 9}, () => new Cell());
   }
 
-  render() {
-    this.container.className = 'grid';
+  render(grid) {
+    super.render();
 
-    this.grid.get('cells').forEach((cell, id) => {
+    grid.get('cells').forEach((cell, id) => {
       const gridCellContainer = document.createElement('div');
       gridCellContainer.className = 'grid-cell-container';
-      gridCellContainer.appendChild(new Cell(cell, id).render().container);
+      gridCellContainer.appendChild(this.cellViews[id].render(cell, id).container);
 
       this.container.appendChild(gridCellContainer);
 

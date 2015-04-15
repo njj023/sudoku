@@ -26,7 +26,6 @@ class Game {
    */
   constructor(gameMode=GameModeConstants.PRESET) {
     this.isValid = true;
-    this.emitter = new EventEmitter();
     this.won = false;
     this.mode = gameMode;
 

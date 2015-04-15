@@ -1,17 +1,38 @@
+$breakpointMedium: 800px;
+$breakpointThinnest: 600px;
+
 .cell {
+  height: 80px;
+  width: 80px;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+
+  @include thinner-than($breakpointMedium) {
+    height: 60px;
+    width: 60px;
+  }
+
+  @include thinner-than($breakpointThinnest) {
+    height: 30px;
+    width: 30px;
+  }
+
   input {
     background-color: inherit;
-    border: 1px solid $colorGrey;
-    width: 100%;
     text-align: center;
     cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border: none;
+    transition: all .5s ease;
 
     &[disabled] {
       color: $colorGrey;
     }
 
-    &[data-invalidate="true"] {
+    &[data-invalid="true"] {
       color: $colorRed;
+      font-weight: bold;
     }
   }
 }

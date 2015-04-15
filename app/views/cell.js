@@ -5,17 +5,31 @@ const GameConstants = require('../constants/gameconstants');
 const BaseView = require('./baseview');
 
 class Cell extends BaseView {
-  constructor(cell, id) {
+  constructor() {
     super();
+
+    this.container.className = 'cell';
+  }
+
+  render(cell, id) {
+    super.render();
+
+    this.onChangeSubscribe();
+    this.onInvalidateSubscribe();
+    this.onWonSubscribe();
 
     this.cell = cell;
     this.id = id;
     this.value = cell.get('value');
 
-    this.container.className = 'cell';
+    const value = this.value || '';
 
-    this.onChangeSubscribe();
-    this.onInvalidateSubscribe();
+    this.container.innerHTML =  html `
+        <input type="text" ${!cell.get('editable') ? 'disabled' : ''} value=${value}>
+    `;
+
+    return this;
+
   }
 
   onChangeSubscribe() {
@@ -32,39 +46,35 @@ class Cell extends BaseView {
         GameDispatcher.emit(GameConstants.CELL_UPDATE,
           this.cell.get('gridID'), this.id, value);
       }
-
     });
   }
 
   onInvalidateSubscribe() {
-    const cell = this.cell;
-
     GameDispatcher.on(GameConstants.INVALIDATE_CELLS, (gridIDs, cellIDs, value) => {
 
-      if (gridIDs.contains(cell.get('gridID')) &&
+      if (gridIDs.contains(this.cell.get('gridID')) &&
           cellIDs.contains(this.id) &&
           this.value === value) {
 
-        this.markAsInvalidated();
+        this.markAsInvalid();
       }
-
     });
   }
 
-  markAsInvalidated() {
-    const inputTag = this.container.getElementsByTagName('input')[0];
-    inputTag.setAttribute('data-invalidate', true);
+  onWonSubscribe() {
+    GameDispatcher.on(GameConstants.WON, () => {
+      console.log('You won!!!');
+    });
   }
 
-  render() {
-    const value = this.value || '';
+  markAsInvalid() {
+    const inputTag = this.container.getElementsByTagName('input')[0];
+    inputTag.setAttribute('data-invalid', true);
+  }
 
-    this.container.innerHTML =  html `
-        <input type="text" ${!this.cell.get('editable') ? 'disabled' : ''} value=${value}>
-    `;
-
-    return this;
-
+  markAsValid() {
+    const inputTag = this.container.getElementsByTagName('input')[0];
+    inputTag.setAttribute('data-invalid', false);
   }
 }
 
