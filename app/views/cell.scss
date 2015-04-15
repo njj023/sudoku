@@ -34,5 +34,10 @@ $breakpointThinnest: 600px;
       color: $colorRed;
       font-weight: bold;
     }
+
+    &[data-won="true"] {
+      color: $colorGreen;
+      font-weight: bold;
+    }
   }
 }

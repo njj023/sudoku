@@ -38,11 +38,20 @@
     text-align: center;
     letter-spacing: 0.4px;
     text-decoration: none;
-    transition: all 0.2s ease;
     white-space: nowrap;
 
     &:focus {
       outline: none;
+    }
+  }
+
+  &-wonMsg {
+    color: $colorGreen;
+    transition: all 0.25s ease;
+    display: none;
+
+    &[data-show="true"] {
+      display: block;
     }
   }
 }

@@ -24,6 +24,8 @@ class App extends BaseView {
         <section class="app-grids">
         </section>
 
+        <p class="app-wonMsg"><em>You won! Let's play again?</em></p>
+
         <button class="app-reset">
           Reset Game
         </button>
@@ -37,8 +39,9 @@ class App extends BaseView {
     const resetButton = this.container.getElementsByClassName('app-reset')[0];
     resetButton.addEventListener('click', (evt) => this.reset(evt));
 
+    this.wonMessage = this.container.getElementsByClassName('app-wonMsg')[0];
     GameDispatcher.on(GameConstants.WON, () => {
-      console.log('You won!!!');
+      this.wonMessage.setAttribute('data-show', 'true');
     });
 
     return this;
@@ -59,6 +62,7 @@ class App extends BaseView {
 
   reset() {
     GameDispatcher.removeAllListeners();
+    this.wonMessage.setAttribute('data-show', 'false');
 
     this.game = new Game();
     this.renderGrids();

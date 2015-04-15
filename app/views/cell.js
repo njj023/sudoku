@@ -46,7 +46,7 @@ class Cell extends BaseView {
       if (evt.keyCode === 13) {   // Enter key
         this.inputTag.blur();
       }
-    })
+    });
   }
 
   subscribeToGameEvents() {
@@ -59,6 +59,8 @@ class Cell extends BaseView {
     this.onValidateGridSubscribe();
     this.onValidateRowSubscribe();
     this.onValidateColumnSubscribe();
+
+    this.onWonSubscribe();
   }
 
   initializeData(cell, id) {
@@ -157,12 +159,24 @@ class Cell extends BaseView {
     });
   }
 
+  onWonSubscribe() {
+    GameDispatcher.on(GameConstants.WON, () => {
+      this.markAsWon();
+    });
+  }
+
   markAsInvalid() {
     this.inputTag.setAttribute('data-invalid', true);
   }
 
   markAsValid() {
     this.inputTag.setAttribute('data-invalid', false);
+  }
+
+  markAsWon() {
+    this.inputTag.removeAttribute('data-invalid');
+    this.inputTag.setAttribute('data-won', true);
+    this.inputTag.setAttribute('disabled', true);
   }
 }
 
