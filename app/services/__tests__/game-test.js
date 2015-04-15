@@ -9,6 +9,7 @@ const Game = rewire('../game');
 
 describe('Game service tests', () => {
   let mockDispatcher = new EventEmitter();
+  mockDispatcher.setMaxListeners(100);
   Game.__set__('GameDispatcher', mockDispatcher);
 
   let game;
