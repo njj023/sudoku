@@ -24,7 +24,6 @@ var publicPaths = Object.freeze({
 
 /* MAIN TASKS */
 var baseTasks = ['clean', 'styles'];
-gulp.task('dist', baseTasks.concat(['webpack']));
 gulp.task('dev', baseTasks.concat(['webpack-dev-server', 'watch']));
 gulp.task('default', ['dev']);
 
