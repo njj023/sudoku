@@ -1,6 +1,6 @@
 # Online Sudoku Game
  
-This code builds an interactive Sudoku game!  
+This code builds an interactive Sudoku game! It works in real-time and provides feedback as you play the game.
 
 ### Getting started
 
