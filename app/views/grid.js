@@ -12,6 +12,7 @@ class Grid extends BaseView {
   render(grid) {
     super.render();
 
+    // Render cell views
     grid.get('cells').forEach((cell, id) => {
       const gridCellContainer = document.createElement('div');
       gridCellContainer.className = 'grid-cell-container';

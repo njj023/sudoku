@@ -20,10 +20,12 @@ class App extends BaseView {
   render() {
     this.container.innerHTML = html`
         <h1 data-type="herolarge">Sudoku</h1>
+
         <section class="app-grids">
         </section>
+
         <button class="app-reset">
-        Reset Game
+          Reset Game
         </button>
     `;
 
@@ -34,6 +36,10 @@ class App extends BaseView {
 
     const resetButton = this.container.getElementsByClassName('app-reset')[0];
     resetButton.addEventListener('click', (evt) => this.reset(evt));
+
+    GameDispatcher.on(GameConstants.WON, () => {
+      console.log('You won!!!');
+    });
 
     return this;
   }
@@ -49,11 +55,6 @@ class App extends BaseView {
 
       gridsContainer.appendChild(gridContainer);
     }).bind(this));
-
-    GameDispatcher.on(GameConstants.WON, () => {
-      console.log('You won!!!');
-    });
-
   }
 
   reset() {
