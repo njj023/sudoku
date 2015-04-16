@@ -34,7 +34,7 @@ The app is composed of two distinct layers:
 
 2. A service layer containing a Game service. 
 
-All communication between the views and the service is done through an EventEmitter called `GameDispatcher`. This approach keeps the entire system highly decoupled.
+All communication between the views and the service is done through an EventEmitter called `GameDispatcher`. This approach keeps the entire system highly decoupled. Any data passed across the views and the service is also immutable so no accidental state tampering can happen.
 
 `app/main.js`, `app/main.scss` and `app/main-test.js` are the entry points for all the respective code.
 
