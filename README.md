@@ -25,7 +25,7 @@ gulp
 
 ```
 
-After running all of the above steps, navigate to [localhost:8080](localhost:8080) to start playing!
+After running all of the above steps, navigate to `localhost:8080` to start playing!
 
 ### Architecture overview
 The app is composed of two distinct layers:
