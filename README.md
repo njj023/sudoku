@@ -56,7 +56,7 @@ Lastly, the site is fully responsive across all viewport sizes. Responsiveness i
 4. Tests use Karma as a test runner and Jasmine as the unit testing library. All tests are run on Firefox and Chrome. 
 Running `gulp test-watch` allows us to run tests on each file save.
 
-5. HTML templating is done using ES6 template strings. This solution allows us to use all the powerful and familiar constructs available in JS. It also allows us to use keep markup and UI interactions contained in one view file. 
+5. HTML templating is done using ES6 template strings. This solution allows us to use all the powerful and familiar constructs available in JS while creating HTML templates. It also allows us to use keep markup and UI interactions contained in one view file. 
 
 ### TODOS
 1. Currently the puzzle starts off with just one [preset board](http://en.wikipedia.org/wiki/Sudoku#/media/File:Sudoku-by-L2G-20050714.svg). I would love to add a random board generator and a board solver based on difficulty levels.
