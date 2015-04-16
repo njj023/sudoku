@@ -29,7 +29,9 @@ After running all of the above steps, navigate to `localhost:8080` to start play
 
 ### Architecture overview
 The app is composed of two distinct layers:
+
 1. A view layer containing views for the game, grids and the cells. `app/app.js` is the root view of the system.
+
 2. A service layer containing a Game service. 
 
 All communication between the views and the service is done through an EventEmitter called `GameDispatcher`. This approach keeps the entire system highly decoupled.
