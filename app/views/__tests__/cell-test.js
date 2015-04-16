@@ -65,7 +65,4 @@ describe('Cell view tests', () => {
 
     expect(inputField.getAttribute('data-invalid')).toEqual('false');
   });
-
-
-
 });
